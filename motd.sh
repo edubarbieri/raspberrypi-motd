@@ -94,8 +94,8 @@ me=$(whoami)
 
 # Greetings
 greetings="$borderBar$(color $greetingsColor "$(center "Welcome back, $me!")")$borderBar\n"
-greetings="$greetings$borderBar$(color $greetingsColor "$(center "$(date +"%A, %d %B %Y, %T")")")$borderBar"
-
+greetings="$greetings$borderBar$(color $greetingsColor "$(center "$(date +"%A, %d %B %Y, %T")")")$borderBar\n"
+greetings="$greetings$borderBar$(color $greetingsColor "$(center "$(lsb_release -s -d) $(uname -r)")")$borderBar"
 # System information
 
 read loginFrom loginIP loginMonth loginDay loginTime loginYear <<< $(last $me -2 -F | awk 'NR==2 { print $2,$3,$5,$6,$7,$8 }')
@@ -132,7 +132,13 @@ label4="$borderBar  $(color $statsLabelColor "Home space....:") $label4$borderBa
 label5="$(extend "$(/opt/vc/bin/vcgencmd measure_temp | cut -c "6-9")ºC")"
 label5="$borderBar  $(color $statsLabelColor "Temperature...:") $label5$borderBar"
 
-stats="$label1\n$label2\n$label3\n$label4\n$label5"
+label6="$(extend "$(ps ax | wc -l | tr -d ' ')")"
+label6="$borderBar  $(color $statsLabelColor "Running Proc..:") $label6$borderBar"
+
+label7="$(extend "$(ip a | grep glo | awk '{print $2}' | head -1)")"
+label7="$borderBar  $(color $statsLabelColor "IP Address....:") $label7$borderBar"
+
+stats="$label1\n$label2\n$label3\n$label4\n$label5\n$label6\n$label7"
 
 # Print motd
 echo -e "$header\n$borderEmptyLine\n$greetings\n$borderEmptyLine\n$stats\n$borderEmptyLine\n$borderBottomLine"
