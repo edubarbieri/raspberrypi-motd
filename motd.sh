@@ -142,7 +142,10 @@ label6="$borderBar  $(color $statsLabelColor "Running Proc..:") $label6$borderBa
 label7="$(extend "$(ip a | grep glo | awk '{print $2}' | head -1)")"
 label7="$borderBar  $(color $statsLabelColor "IP Address....:") $label7$borderBar"
 
-stats="$label1\n$label2\n$label3\n$label4\n$label4_1\n$label5\n$label6\n$label7"
+label8="$(extend "$(users | wc -w)")"
+label8="$borderBar  $(color $statsLabelColor "Local users...:") $label8$borderBar"
+
+stats="$label1\n$label2\n$label3\n$label4\n$label4_1\n$label5\n$label6\n$label7\n$label8"
 
 # Print motd
 echo -e "$header\n$borderEmptyLine\n$greetings\n$borderEmptyLine\n$stats\n$borderEmptyLine\n$borderBottomLine"
